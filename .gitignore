@@ -1,5 +1,6 @@
 settings.py
 db.sqlite3
+polls.json
 django_tutorial/__pycache__/
 polls/__pycache__/
 polls/migrations/__pycache__/
