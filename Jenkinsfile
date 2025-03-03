@@ -34,12 +34,13 @@ pipeline {
         stage('Creación de la imagen') {
             agent any
             stages {
-                stage('Build')
+                stage('Build') {
                     steps {
                         script {
                             newApp = docker.build "$IMAGEN:$BUILD_NUMBER"
                         }
                     }
+                }
                 stage('Deploy') {
                     steps {
                         script {
