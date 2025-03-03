@@ -5,9 +5,10 @@ pipeline {
     }
     agent none
     stages {
-        stage("build and test the project") {
+        stage("test the project") {
             agent {
-                docker {"python:3"
+                docker {
+                image "python:3"
                 args '-u root:root'
                 }
             }
