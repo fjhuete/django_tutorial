@@ -46,6 +46,7 @@ pipeline {
                         script {
                             docker.withRegistry( '', USUARIO ) {
                                 newApp.push()
+                                newApp.push("latest")
                             }
                         }
                     }
@@ -57,7 +58,19 @@ pipeline {
                 }
             }
         }
-    }
+        stage ('Despliegue') {
+            agent any
+            stages {
+                stage ('Despliegue en el VPS'){
+                    steps{
+                        sshagent(credentials : ['Pignite']) {
+                        sh 'ssh -o StrictHostKeyChecking=no debian@pignite.javihuete.site "cd django_tutorial && git pull && docker compose down && docker pull fjhuete/polls:latest && docker compose up -d"'
+                        }
+                    }
+                }
+            }
+        }
+    }    
     post {
         always {
         mail to: 'fjhuete.m@gmail.com',
