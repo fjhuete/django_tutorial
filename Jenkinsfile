@@ -58,4 +58,11 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+        mail to: 'fjhuete.m@gmail.com',
+        subject: "Estado del pipeline: ${currentBuild.fullDisplayName}",
+        body: "El despliegue ${env.BUILD_URL} ha tenido como resultado: ${currentBuild.result}"
+        }
+    }
 }
